@@ -48,4 +48,40 @@ MetaWeblogData: TempInstallUrl
 Settings: PortalID Key Value TabID   Portals
 Tags: TagID Tag Slug Active  PortalID Blog_Entry_Tags Portals
 ```
+
+I used 3 sequential SQL Scripts, but a SQL wiz could likely streamline these. Still, this processes some 200 blog entries in a few seconds.
+```
+-- 1.  Get the tags for each blog entry
+DROP TABLE IF EXISTS aaTagsByEntryIDWithEnglish
+
+SELECT EntryID, Blog_Tags.TagID, Tag
+INTO aaTagsByEntryIDWithEnglish		
+FROM   Blog_Entry_Tags INNER JOIN
+        Blog_Tags ON Blog_Entry_Tags.TagID = Blog_Tags.TagID
+        Order By EntryID";
+```
+then
+```
+--2.Concatenate tags(into one comma separated cell) for each blog entry
+DROP TABLE IF EXISTS aaHorizTags
+
+SELECT EntryID, STRING_AGG(CONVERT(NVARCHAR(max), Tag), ', ') as AllTags
+    INTO aaHorizTags
+    FROM aaTagsByEntryIDWithEnglish
+    GROUP BY EntryID
+    ORDER BY EntryID";
+```
+& finally
+```
+--3.Join blog entries with blog description and tags
+DROP TABLE IF EXISTS aaTheWholeEnchilada
+
+SELECT *
+--INTO aaTheWholeEnchilada
+FROM    Blog_Entries INNER JOIN
+        Blog_Blogs ON Blog_Entries.BlogID = Blog_Blogs.BlogID INNER JOIN
+        aaHorizTags ON aaHorizTags.EntryID = Blog_Entries.EntryID
+--AS  aaTheWholeEnchilada
+```
+
 This sufficed for me, but you may likely have to do some more alterations for some of your blog entries if you used 'funky' formatting. Enjoy!
