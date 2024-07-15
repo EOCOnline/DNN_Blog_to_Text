@@ -74,7 +74,7 @@ SELECT EntryID, STRING_AGG(CONVERT(NVARCHAR(max), Tag), ', ') as AllTags
 & finally
 ```
 --3.Join blog entries with blog description and tags
-DROP TABLE IF EXISTS aaTheWholeEnchilada
+-- DROP TABLE IF EXISTS aaTheWholeEnchilada
 
 SELECT *
 --INTO aaTheWholeEnchilada
