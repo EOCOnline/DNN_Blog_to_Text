@@ -120,7 +120,7 @@ internal class DNNBlog2Markdown
                 }
 
                 // New Markdown file named by date and EntryID
-                newFileName = filePath + "\\" + incomingDate.Year + "\\" + incomingDate.Year + delim + incomingDate.Month + delim + incomingDate.Day + "_Entry" + sqlReader["EntryID"] + ".md";
+                newFileName = filePath + "\\" + incomingDate.Year + "\\" + incomingDate.Year + delim + incomingDate.Month.ToString(D2) + delim + incomingDate.Day.ToString(D2) + "_Entry" + sqlReader["EntryID"] + ".md";
 
                 if (!Directory.Exists(Path.GetDirectoryName(newFileName)))
                 {
