@@ -85,7 +85,7 @@ internal class DNNBlog2Markdown
                 SELECT *
                 --INTO aaTheWholeEnchilada
                 FROM    Blog_Entries INNER JOIN
-                        Blog_Blogs ON Blog_Entries.BlogID = Blog_Blogs.BlogID LEFT JOIN
+                        Blog_Blogs ON Blog_Entries.BlogID = Blog_Blogs.BlogID LEFT OUTER JOIN
                         aaHorizTags ON aaHorizTags.EntryID = Blog_Entries.EntryID";
             //              AS  aaTheWholeEnchilada";
 
