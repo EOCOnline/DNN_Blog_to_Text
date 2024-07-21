@@ -79,7 +79,7 @@ SELECT EntryID, STRING_AGG(CONVERT(NVARCHAR(max), Tag), ', ') as AllTags
 SELECT *
 --INTO aaTheWholeEnchilada
 FROM    Blog_Entries INNER JOIN
-        Blog_Blogs ON Blog_Entries.BlogID = Blog_Blogs.BlogID INNER JOIN
+        Blog_Blogs ON Blog_Entries.BlogID = Blog_Blogs.BlogID LEFT OUTER JOIN
         aaHorizTags ON aaHorizTags.EntryID = Blog_Entries.EntryID
 --AS  aaTheWholeEnchilada
 ```
